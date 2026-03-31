@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Rowerek vs HYROX</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)),
+      url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .overlay {
+      padding: 50px;
+      border-radius: 20px;
+      max-width: 700px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    .big {
+      font-size: 4.5rem;
+      color: #ff2e2e;
+      font-weight: bold;
+    }
+
+    .small {
+      font-size: 2rem;
+      color: #00d4ff;
+      margin-top: 20px;
+    }
+
+    #message {
+      margin-top: 25px;
+      font-size: 1.3rem;
+      min-height: 60px;
+    }
+
+    .hint {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="overlay">
+  <h1>Dzień</h1>
+  <div class="big" id="counter">1</div>
+  <p>czekania aż Rowerek zapisze się na HYROX Gdańsk 2026</p>
+
+  <div class="small">
+    Zostało: <span id="countdown">???</span> dni do HYROX 💀
+  </div>
+
+  <div id="message"></div>
+
+  <p class="hint">Kliknij gdziekolwiek, żeby poczuć presję 🔊</p>
+</div>
+
+<!-- 🔊 MUZYKA -->
+<audio id="bgMusic" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  // 🔥 DATA STARTU
+  const startDate = new Date("2026-03-31");
+
+  // 💀 DATA HYROX
+  const hyroxDate = new Date("2026-10-11");
+
+  const today = new Date();
+
+  // 📈 LICZNIK DNI
+  const diffTime = today - startDate;
+  const days = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+  document.getElementById("counter").innerText = days > 0 ? days : 1;
+
+  // ⏳ COUNTDOWN
+  const timeLeft = hyroxDate - today;
+  const daysLeft = Math.ceil(timeLeft / (1000 * 60 * 60 * 24));
+  document.getElementById("countdown").innerText = daysLeft > 0 ? daysLeft : 0;
+
+  // 💀 TEKSTY PRESJI
+  const messages = [
+    "Czas leci. Ty dalej nic.",
+    "Każdy dzień bliżej startu. Ty dalej w miejscu.",
+    "Inni już trenują pod HYROX.",
+    "Zegar tyka. Forma się sama nie zrobi.",
+    "Z każdym dniem masz mniej czasu.",
+    "To nie plan. To odwlekanie.",
+    "Bieg się zacznie niezależnie od Ciebie.",
+    "Start nadejdzie szybciej niż myślisz.",
+    "Jeszcze możesz zdążyć… ale już ledwo.",
+    "To ostatni moment na decyzję."
+  ];
+
+  const messageIndex = Math.min(days - 1, messages.length - 1);
+  document.getElementById("message").innerText = messages[messageIndex];
+
+  // 🔊 ODPALANIE MUZYKI KLIKNIĘCIEM
+  document.body.addEventListener("click", function () {
+    const music = document.getElementById("bgMusic");
+    music.play();
+  }, { once: true });
+
+</script>
+
+</body>
+</html>
